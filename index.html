@@ -1,0 +1,659 @@
+﻿
+<!DOCTYPE html>
+<html lang="id" class="dark scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Undangan wisuda putra. Konfirmasi kehadiran, lihat detail acara, dan rayakan kelulusan bersama." />
+<meta property="og:title" content="Undangan Wisuda Putra" />
+<meta property="og:description" content="Ajak keluarga dan teman merayakan kelulusan bersama. Konfirmasi kehadiran sekarang." />
+<meta property="og:image" content="gambar/foto.jpeg" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="" />
+<title>Undangan Wisuda Putra</title>
+
+<!-- FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+
+<!-- ICON -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+
+<!-- TAILWIND -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+
+:root{
+    --primary: 25 45 72;
+    --secondary: 60 70 90;
+    --dark: 15 23 42;
+    --card: 30 41 59;
+    --text: 230 235 245;
+}
+
+html {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none;
+}
+
+body{
+    background: rgb(var(--dark));
+    color: rgb(var(--text));
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+}
+
+.title-font{
+    font-family: 'Montserrat', sans-serif;
+}
+
+.glass{
+    background: rgba(17,25,40,.75);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(255,255,255,.08);
+    box-shadow: 0 8px 32px rgba(0,0,0,.35);
+}
+
+.floating{
+    animation: floating 4s ease-in-out infinite;
+}
+
+@keyframes floating{
+    0%,100%{
+        transform: translateY(0px);
+    }
+    50%{
+        transform: translateY(-12px);
+    }
+}
+
+.hero-gradient{
+    background:
+    radial-gradient(circle at top left, rgba(59,130,246,.25), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(96,165,250,.15), transparent 30%),
+    rgb(var(--dark));
+}
+
+.glow{
+    box-shadow: 0 0 40px rgba(59,130,246,.35);
+}
+
+.nav-active{
+    color: #60a5fa;
+}
+
+.photo-hover{
+    transition: .4s ease;
+}
+
+.photo-hover:hover{
+    transform: scale(1.03);
+}
+
+.btn-primary{
+    background: linear-gradient(135deg,#1e3a8a,#2563eb);
+}
+
+.btn-primary:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(37,99,235,.4);
+}
+
+/* Cover overlay styles */
+#cover-overlay{
+    position:fixed; inset:0; z-index:60; display:flex; align-items:center; justify-content:center;
+    padding:3rem; background: linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.7));
+}
+.cover-card{ max-width:800px; width:100%; }
+.cover-guest{ font-family: 'Montserrat', sans-serif; font-size:2rem; color: rgb(var(--text)); }
+.cover-open-btn{ border-radius:9999px; padding:.9rem 2.2rem; font-weight:700; display:inline-flex; gap:.6rem; align-items:center; }
+
+/* Timeline / schedule styles */
+.timeline { display:block; }
+.timeline-column { padding-left:1rem; }
+.timeline-item { position:relative; padding:1rem 1rem 1rem 5.5rem; border-radius:12px; background:rgba(255,255,255,0.02); margin-bottom:1rem; }
+.timeline-item:before { content:''; position:absolute; left:1rem; top:1rem; width:12px; height:12px; border-radius:9999px; background:linear-gradient(135deg,#1e3a8a,#2563eb); box-shadow:0 6px 18px rgba(37,99,235,0.15); }
+.timeline-icon{ position:absolute; left:0.6rem; top:0.6rem; width:44px; height:44px; border-radius:10px; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#1e3a8a,#2563eb); color:#fff; box-shadow:0 8px 24px rgba(30,58,138,0.12); }
+.timeline-icon .material-symbols-outlined{ font-size:20px; }
+
+/* Decorative floating icons */
+.decorative-floating{ position:absolute; pointer-events:none; opacity:0.12; color:rgb(59,130,246); filter:drop-shadow(0 8px 24px rgba(37,99,235,0.12)); }
+.floating-sm { animation: floating 5s ease-in-out infinite; transform-origin:center; }
+.time-badge { font-weight:700; color:rgba(255,255,255,0.9); background:rgba(17,25,40,0.5); padding:.3rem .6rem; border-radius:999px; font-size:0.85rem; display:inline-block; }
+.timeline-title { font-weight:700; color:rgb(var(--text)); margin-top:.25rem; }
+.timeline-desc { color:rgba(226,231,240,0.8); font-size:0.95rem; margin-top:.25rem; }
+
+
+</style>
+</head>
+
+<body class="hero-gradient">
+
+<!-- MUSIC -->
+<audio id="bg-music" loop src="audio/musik.mp3"></audio>
+
+<!-- MUSIC BUTTON -->
+<button id="musicBtn"
+class="fixed z-50 right-6 top-6 w-14 h-14 rounded-full glass flex items-center justify-center">
+
+<span id="musicIcon"
+class="material-symbols-outlined text-blue-400 animate-spin"
+style="animation-duration:5s">
+music_note
+</span>
+
+</button>
+
+<!-- Cover Overlay (customizable via ?to=NAME links from admin) -->
+<div id="cover-overlay" class="">
+    <div class="glass cover-card p-8 md:p-12 rounded-2xl text-center">
+        <div class="mb-6">
+            <div class="w-20 h-20 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="material-symbols-outlined text-4xl text-blue-400">celebration</span>
+            </div>
+            <p class="text-slate-300 text-sm">Anda diundang untuk hadir pada acara</p>
+        </div>
+        <h1 class="title-font text-4xl md:text-5xl font-bold mb-2 cover-guest" id="cover-guest-name">Tamu Istimewa</h1>
+        <p class="text-slate-400 mb-6">Mohon maaf jika terdapat kekeliruan penulisan nama. Silakan buka undangan.</p>
+        <div class="flex items-center justify-center gap-4">
+            <button id="openInvitation" class="btn-primary cover-open-btn">
+                <span class="material-symbols-outlined">mail</span>
+                BUKA UNDANGAN
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Main content (hidden until cover is opened) -->
+<div id="main-content" class="opacity-0 transition-opacity duration-700 pointer-events-none">
+
+<!-- HERO -->
+<section class="min-h-screen flex items-center justify-center px-6 relative">
+
+<div class="absolute top-24 left-10 text-blue-500/20 floating">
+<span class="material-symbols-outlined text-[120px]">
+rocket_launch
+</span>
+</div>
+
+<div class="absolute bottom-16 right-10 text-blue-400/10 floating">
+<span class="material-symbols-outlined text-[150px]">
+military_tech
+</span>
+</div>
+
+<div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+
+<!-- FOTO -->
+<div class="relative flex justify-center">
+
+<div class="absolute w-72 h-72 bg-blue-500/20 rounded-full blur-3xl glow"></div>
+
+<img
+src="gambar/foto.jpeg"
+class="relative z-10 w-72 h-72 md:w-[420px] md:h-[420px] rounded-full object-cover border-4 border-blue-500/40 shadow-2xl photo-hover"
+alt="Graduate"
+/>
+
+</div>
+
+<!-- TEXT -->
+<div class="text-center md:text-left">
+
+<div class="inline-flex items-center gap-2 px-5 py-2 rounded-full glass mb-6">
+<span class="material-symbols-outlined text-blue-400">
+bolt
+</span>
+
+<span class="text-sm tracking-[3px] uppercase">
+Wisuda 2026
+</span>
+</div>
+
+<div class="leading-tight mb-6">
+    <div class="text-3xl md:text-4xl font-semibold title-font">Graduate</div>
+    <h1 class="title-font text-5xl md:text-7xl font-extrabold mt-2">
+        <span class="text-blue-400">Wisuda 2026</span>
+    </h1>
+    <p class="text-slate-200 mt-3 font-medium">BAB BARU DIMULAI</p>
+</div>
+
+<!-- Graduate name (can be overridden with ?student=Name) -->
+<div class="text-lg font-semibold text-slate-200 mb-3"><span id="grad-name"></span></div>
+
+<p class="text-xl text-slate-300 mb-8 leading-relaxed">
+Dengan penuh rasa syukur, saya mengundang Bapak/Ibu/Saudara/i untuk hadir dan menjadi bagian dari momen kelulusan ini.
+
+Perjalanan ini tidak akan sampai di titik ini tanpa doa, dukungan, dan kebersamaan dari orang-orang terdekat. Terima kasih telah menjadi bagian dari cerita ini.
+
+</p>
+
+<div class="flex flex-col md:flex-row gap-4">
+    <a href="#detail"
+    class="btn-primary px-8 py-4 rounded-full font-semibold transition-all duration-300 text-center">
+    SAVE THE DATE
+    </a>
+    <a href="#detail"
+    class="glass px-8 py-4 rounded-full font-semibold transition-all duration-300 text-center hover:bg-white/10">
+    Detail Acara
+    </a>
+</div>
+
+                <!-- COUNTDOWN -->
+                <div id="countdown" class="mt-8 inline-flex items-center gap-4 bg-white/5 px-6 py-3 rounded-full text-center">
+                    <span class="material-symbols-outlined text-blue-300">timer</span>
+                    <div class="font-semibold text-slate-200">
+                        <span id="cd-days">00</span>d
+                        <span id="cd-hours" class="ml-2">00</span>h
+                        <span id="cd-mins" class="ml-2">00</span>m
+                        <span id="cd-secs" class="ml-2">00</span>s
+                    </div>
+                </div>
+
+<!-- Susunan Acara -->
+<div class="mt-12 relative">
+    <!-- decorative floating icons -->
+    <div class="decorative-floating floating-sm" style="left:2%; top:-10px; font-size:48px;"> 
+        <span class="material-symbols-outlined">star</span>
+    </div>
+    <div class="decorative-floating floating-sm" style="right:6%; top:10px; font-size:60px;"> 
+        <span class="material-symbols-outlined">favorite</span>
+    </div>
+    <div class="decorative-floating floating-sm" style="left:8%; bottom:-10px; font-size:40px;"> 
+        <span class="material-symbols-outlined">school</span>
+    </div>
+    <div class="grid md:grid-cols-2 gap-6">
+    <div class="timeline-column">
+        <div class="glass p-6 rounded-2xl">
+            <h3 class="text-2xl font-bold mb-4">Susunan Acara - Minggu, 21 Juni 2026</h3>
+            <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-icon"><span class="material-symbols-outlined">restaurant</span></div>
+                        <div class="time-badge">10:00 - 16:00</div>
+                        <div class="timeline-title">Jamuan Di Posko Lulusan</div>
+                        <div class="timeline-desc">Menyambut kehadiran keluarga dan tamu kehormatan.</div>
+                    </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon"><span class="material-symbols-outlined">celebration</span></div>
+                    <div class="time-badge">16:00 - 18:00</div>
+                    <div class="timeline-title">Doa Bersama & Akikah</div>
+                    <div class="timeline-desc">Momen syukur dan doa bersama keluarga.</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon"><span class="material-symbols-outlined">school</span></div>
+                    <div class="time-badge">20:00 - Selesai</div>
+                    <div class="timeline-title">Pengukuhan Gelar</div>
+                    <div class="timeline-desc">Seremoni pengukuhan dan ucapan selamat.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="timeline-column">
+        <div class="glass p-6 rounded-2xl">
+            <h3 class="text-2xl font-bold mb-4">Susunan Acara - Senin, 22 Juni 2026</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-icon"><span class="material-symbols-outlined">groups</span></div>
+                    <div class="time-badge">07:00 - 08:00</div>
+                    <div class="timeline-title">Arak-arakan Lulusan</div>
+                    <div class="timeline-desc">Pawai tradisional mengarak lulusan.</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon"><span class="material-symbols-outlined">card_membership</span></div>
+                    <div class="time-badge">08:00 - 12:30</div>
+                    <div class="timeline-title">Pemberian Ijazah</div>
+                    <div class="timeline-desc">Puncak acara pemberian dokumen kelulusan.</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon"><span class="material-symbols-outlined">music_note</span></div>
+                    <div class="time-badge">20:00 - Selesai</div>
+                    <div class="timeline-title">Sholawat & Lelang</div>
+                    <div class="timeline-desc">Penutupan malam seni dan penggalangan dana.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="py-20 px-6">
+<div class="max-w-5xl mx-auto glass rounded-[40px] p-10 text-center">
+    <h2 class="title-font text-4xl md:text-5xl font-bold mb-4">UNDANGAN WISUDA</h2>
+
+    <p class="text-slate-300 text-lg leading-relaxed max-w-3xl mx-auto">
+        Assalamu’alaikum Warahmatullahi Wabarakatuh
+    </p>
+
+    <p class="text-slate-300 text-lg leading-relaxed max-w-3xl mx-auto mt-4">
+        Dengan penuh kebahagiaan, saya mengundang Bapak/Ibu/Saudara/i untuk hadir pada acara wisuda ini.
+        Kehadiran dan doa restu dari Anda akan menjadi kebahagiaan tersendiri bagi saya dan keluarga.
+        Mohon konfirmasi kehadiran agar persiapan acara dapat dilakukan dengan lebih baik.
+    </p>
+
+</div>
+</section>
+
+<!-- DETAIL -->
+<section id="detail" class="py-24 px-6">
+
+<div class="max-w-6xl mx-auto">
+
+<div class="text-center mb-16">
+
+<h2 class="title-font text-5xl font-bold mb-4">SAVE THE DATE</h2>
+
+<p class="text-slate-400 text-lg"></p>
+
+</div>
+
+<div class="grid md:grid-cols-2 gap-8">
+
+<!-- CARD -->
+<div class="glass rounded-3xl p-10">
+
+<div class="flex items-center gap-4 mb-6">
+
+<div class="w-14 h-14 rounded-full bg-blue-500/20 flex items-center justify-center">
+
+<span class="material-symbols-outlined text-blue-400">
+calendar_month
+</span>
+
+</div>
+
+<div>
+
+<h3 class="text-2xl font-bold">
+Tanggal Acara
+</h3>
+
+<p class="text-slate-400">
+Momen spesial kelulusan
+</p>
+
+</div>
+
+</div>
+
+<div class="space-y-5">
+
+<div class="flex justify-between border-b border-white/10 pb-4">
+
+<span class="text-slate-400">
+Hari
+</span>
+
+<span class="font-semibold">
+Minggu
+</span>
+
+</div>
+
+<div class="flex justify-between border-b border-white/10 pb-4">
+
+<span class="text-slate-400">
+Tanggal
+</span>
+
+<span class="font-semibold">
+21 Juni 2026
+</span>
+
+</div>
+
+<div class="flex justify-between">
+
+<span class="text-slate-400">
+Waktu
+</span>
+
+<span class="font-semibold">
+10:00 WIB
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CARD -->
+<div class="glass rounded-3xl p-10">
+
+<div class="flex items-center gap-4 mb-6">
+
+<div class="w-14 h-14 rounded-full bg-blue-500/20 flex items-center justify-center">
+
+<span class="material-symbols-outlined text-blue-400">
+location_on
+</span>
+
+</div>
+
+<div>
+
+<h3 class="text-2xl font-bold">
+Lokasi
+</h3>
+
+<p class="text-slate-400">
+Tempat berlangsungnya acara
+</p>
+
+</div>
+
+</div>
+
+<div class="rounded-2xl h-56 w-full mb-6 overflow-hidden">
+    <iframe
+        src="https://www.google.com/maps?q=Darussalam%203%20Rumah%20Nku%20Muqim&output=embed"
+        class="w-full h-full"
+        style="border:0;min-height:220px;"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+
+<a
+href="https://www.google.com/maps/search/?api=1&query=Darussalam%203%20Rumah%20Nku%20Muqim"
+target="_blank"
+class="btn-primary block text-center py-4 rounded-full font-semibold transition-all duration-300">
+Lihat Peta
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- FOOTER -->
+<footer class="py-10 text-center text-slate-400 text-sm">
+<p>© 2026 Undangan Wisuda Putra</p>
+</footer>
+
+<script>
+
+// MUSIC
+const music = document.getElementById('bg-music');
+const musicBtn = document.getElementById('musicBtn');
+const musicIcon = document.getElementById('musicIcon');
+
+music.play().catch(()=>{});
+
+musicBtn.addEventListener('click',()=>{
+
+if(music.paused){
+    music.play();
+    musicIcon.innerText = "music_note";
+    musicIcon.classList.add('animate-spin');
+}else{
+    music.pause();
+    musicIcon.innerText = "music_off";
+    musicIcon.classList.remove('animate-spin');
+}
+
+});
+
+// SCROLL EFFECT
+document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+
+anchor.addEventListener('click',function(e){
+
+e.preventDefault();
+
+document.querySelector(this.getAttribute('href')).scrollIntoView({
+behavior:'smooth'
+});
+
+});
+
+});
+
+const rsvpForm = document.getElementById('rsvp-form');
+const invitedAsInput = document.getElementById('invitedAs');
+const rsvpFeedback = document.getElementById('rsvp-feedback');
+const rsvpSubmit = document.getElementById('rsvp-submit');
+
+function getQueryParam(name) {
+    const params = new URLSearchParams(window.location.search);
+    return params.get(name) || '';
+}
+
+const invitedTo = getQueryParam('to');
+if (invitedTo) {
+    invitedAsInput.value = invitedTo;
+}
+
+// Populate cover guest name (if present) and wire cover open/close
+try{
+    const coverNameEl = document.getElementById('cover-guest-name');
+    const cover = document.getElementById('cover-overlay');
+    const mainContent = document.getElementById('main-content');
+    const openBtn = document.getElementById('openInvitation');
+    if (coverNameEl) coverNameEl.textContent = invitedTo || 'Tamu Istimewa';
+
+    function revealInvitation(playMusic){
+        if (cover) cover.style.display = 'none';
+        if (mainContent){
+            mainContent.classList.remove('opacity-0');
+            mainContent.classList.add('opacity-100');
+            mainContent.classList.remove('pointer-events-none');
+        }
+        if (playMusic){
+            try{ music.play(); music.volume = 0.5; musicIcon.classList.add('animate-spin'); musicIcon.innerText='music_note'; }catch(e){}
+        }
+        window.scrollTo(0,0);
+    }
+
+    if (openBtn) openBtn.addEventListener('click', ()=> revealInvitation(true));
+}catch(e){console.warn(e)}
+
+function showRsvpMessage(text, success) {
+    rsvpFeedback.textContent = text;
+    rsvpFeedback.className = success
+        ? 'text-center text-sm font-medium text-emerald-400'
+        : 'text-center text-sm font-medium text-rose-400';
+    rsvpFeedback.classList.remove('hidden');
+    clearTimeout(window.__rsvpMessageTimeout);
+    window.__rsvpMessageTimeout = setTimeout(() => {
+        rsvpFeedback.classList.add('hidden');
+    }, 5000);
+}
+
+rsvpForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const nama = document.getElementById('rsvp-name').value.trim();
+    const attendance = document.getElementById('attendance-select').value;
+    const guests = Number(document.getElementById('guest-count').value) || 1;
+    const pesan = document.getElementById('rsvp-message').value.trim();
+    const invitedAs = invitedAsInput.value.trim();
+
+    if (!nama || !attendance || !pesan) {
+        showRsvpMessage('Harap isi semua kolom sebelum mengirim.', false);
+        return;
+    }
+
+    rsvpSubmit.disabled = true;
+    rsvpSubmit.textContent = 'Mengirim...';
+
+    try {
+        const response = await fetch('/api/rsvp', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ nama, attendance, guests, pesan, invitedAs })
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || 'Gagal mengirim konfirmasi.');
+
+        showRsvpMessage('Konfirmasi berhasil diterima. Terima kasih!', true);
+        rsvpForm.reset();
+        invitedAsInput.value = invitedTo || '';
+    } catch (error) {
+        showRsvpMessage(error.message || 'Terjadi kesalahan. Coba lagi nanti.', false);
+    } finally {
+        rsvpSubmit.disabled = false;
+        rsvpSubmit.textContent = 'Kirim Konfirmasi';
+    }
+});
+
+// Countdown to event: 21 June 2026 10:00 WIB
+(function(){
+    const target = new Date('2026-06-21T10:00:00+07:00').getTime();
+    const daysEl = document.getElementById('cd-days');
+    const hoursEl = document.getElementById('cd-hours');
+    const minsEl = document.getElementById('cd-mins');
+    const secsEl = document.getElementById('cd-secs');
+
+    function updateCountdown(){
+        const now = Date.now();
+        let delta = Math.max(0, target - now);
+        const days = Math.floor(delta / (1000*60*60*24));
+        delta -= days * (1000*60*60*24);
+        const hours = Math.floor(delta / (1000*60*60));
+        delta -= hours * (1000*60*60);
+        const minutes = Math.floor(delta / (1000*60));
+        delta -= minutes * (1000*60);
+        const seconds = Math.floor(delta / 1000);
+
+        if(daysEl) daysEl.textContent = String(days).padStart(2,'0');
+        if(hoursEl) hoursEl.textContent = String(hours).padStart(2,'0');
+        if(minsEl) minsEl.textContent = String(minutes).padStart(2,'0');
+        if(secsEl) secsEl.textContent = String(seconds).padStart(2,'0');
+
+        if (target - Date.now() <= 0) {
+            clearInterval(intervalId);
+            const cnt = document.getElementById('countdown');
+            if (cnt) cnt.innerHTML = '<span class="font-bold">ACARA SEDANG BERLANGSUNG</span>';
+        }
+    }
+
+    updateCountdown();
+    const intervalId = setInterval(updateCountdown, 1000);
+})();
+
+</script>
+
+</body>
+</html>
