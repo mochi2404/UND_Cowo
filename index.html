@@ -1,4 +1,4 @@
-﻿
+
 <!DOCTYPE html>
 <html lang="id" class="dark scroll-smooth">
 <head>
@@ -24,11 +24,11 @@
 <style>
 
 :root{
-    --primary: 25 45 72;
-    --secondary: 60 70 90;
-    --dark: 15 23 42;
-    --card: 30 41 59;
-    --text: 230 235 245;
+    --primary: 249 115 22;
+    --secondary: 194 65 12;
+    --dark: 255 245 235;
+    --card: 255 250 240;
+    --text: 34 28 20;
 }
 
 html {
@@ -53,10 +53,10 @@ body{
 }
 
 .glass{
-    background: rgba(17,25,40,.75);
+    background: rgba(255,245,235,.88);
     backdrop-filter: blur(18px);
-    border: 1px solid rgba(255,255,255,.08);
-    box-shadow: 0 8px 32px rgba(0,0,0,.35);
+    border: 1px solid rgba(249,115,22,.16);
+    box-shadow: 0 8px 32px rgba(249,115,22,.18);
 }
 
 .floating{
@@ -74,17 +74,17 @@ body{
 
 .hero-gradient{
     background:
-    radial-gradient(circle at top left, rgba(59,130,246,.25), transparent 30%),
-    radial-gradient(circle at bottom right, rgba(96,165,250,.15), transparent 30%),
+    radial-gradient(circle at top left, rgba(249,115,22,.25), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(245,158,11,.15), transparent 30%),
     rgb(var(--dark));
 }
 
 .glow{
-    box-shadow: 0 0 40px rgba(59,130,246,.35);
+    box-shadow: 0 0 40px rgba(249,115,22,.35);
 }
 
 .nav-active{
-    color: #60a5fa;
+    color: #f97316;
 }
 
 .photo-hover{
@@ -96,12 +96,12 @@ body{
 }
 
 .btn-primary{
-    background: linear-gradient(135deg,#1e3a8a,#2563eb);
+    background: linear-gradient(135deg,#f97316,#ea580c);
 }
 
 .btn-primary:hover{
     transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(37,99,235,.4);
+    box-shadow: 0 10px 30px rgba(249,115,22,.4);
 }
 
 /* Cover overlay styles */
@@ -117,16 +117,20 @@ body{
 .timeline { display:block; }
 .timeline-column { padding-left:1rem; }
 .timeline-item { position:relative; padding:1rem 1rem 1rem 5.5rem; border-radius:12px; background:rgba(255,255,255,0.02); margin-bottom:1rem; }
-.timeline-item:before { content:''; position:absolute; left:1rem; top:1rem; width:12px; height:12px; border-radius:9999px; background:linear-gradient(135deg,#1e3a8a,#2563eb); box-shadow:0 6px 18px rgba(37,99,235,0.15); }
-.timeline-icon{ position:absolute; left:0.6rem; top:0.6rem; width:44px; height:44px; border-radius:10px; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#1e3a8a,#2563eb); color:#fff; box-shadow:0 8px 24px rgba(30,58,138,0.12); }
+.timeline-item:before { content:''; position:absolute; left:1rem; top:1rem; width:12px; height:12px; border-radius:9999px; background:linear-gradient(135deg,#f97316,#ea580c); box-shadow:0 6px 18px rgba(249,115,22,0.15); }
+.timeline-icon{ position:absolute; left:0.6rem; top:0.6rem; width:44px; height:44px; border-radius:10px; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#f97316,#ea580c); color:#fff; box-shadow:0 8px 24px rgba(249,115,22,0.12); }
 .timeline-icon .material-symbols-outlined{ font-size:20px; }
 
 /* Decorative floating icons */
-.decorative-floating{ position:absolute; pointer-events:none; opacity:0.12; color:rgb(59,130,246); filter:drop-shadow(0 8px 24px rgba(37,99,235,0.12)); }
+.decorative-floating{ position:absolute; pointer-events:none; opacity:0.12; color:rgb(249,115,22); filter:drop-shadow(0 8px 24px rgba(249,115,22,0.12)); }
 .floating-sm { animation: floating 5s ease-in-out infinite; transform-origin:center; }
-.time-badge { font-weight:700; color:rgba(255,255,255,0.9); background:rgba(17,25,40,0.5); padding:.3rem .6rem; border-radius:999px; font-size:0.85rem; display:inline-block; }
+.time-badge { font-weight:700; color:rgba(34,28,20,0.95); background:rgba(255,245,235,0.8); padding:.3rem .6rem; border-radius:999px; font-size:0.85rem; display:inline-block; }
 .timeline-title { font-weight:700; color:rgb(var(--text)); margin-top:.25rem; }
-.timeline-desc { color:rgba(226,231,240,0.8); font-size:0.95rem; margin-top:.25rem; }
+.timeline-desc {
+    color: rgba(34,28,20,0.75);
+    font-size: 0.95rem;
+    margin-top: .25rem;
+}
 
 
 </style>
@@ -142,7 +146,7 @@ body{
 class="fixed z-50 right-6 top-6 w-14 h-14 rounded-full glass flex items-center justify-center">
 
 <span id="musicIcon"
-class="material-symbols-outlined text-blue-400 animate-spin"
+class="material-symbols-outlined text-orange-400 animate-spin"
 style="animation-duration:5s">
 music_note
 </span>
@@ -153,13 +157,13 @@ music_note
 <div id="cover-overlay" class="">
     <div class="glass cover-card p-8 md:p-12 rounded-2xl text-center">
         <div class="mb-6">
-            <div class="w-20 h-20 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span class="material-symbols-outlined text-4xl text-blue-400">celebration</span>
+            <div class="w-20 h-20 bg-orange-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="material-symbols-outlined text-4xl text-orange-400">celebration</span>
             </div>
-            <p class="text-slate-300 text-sm">Anda diundang untuk hadir pada acara</p>
+            <p class="text-gray-700 text-sm">Anda diundang untuk hadir pada acara</p>
         </div>
         <h1 class="title-font text-4xl md:text-5xl font-bold mb-2 cover-guest" id="cover-guest-name">Tamu Istimewa</h1>
-        <p class="text-slate-400 mb-6">Mohon maaf jika terdapat kekeliruan penulisan nama. Silakan buka undangan.</p>
+        <p class="text-gray-600 mb-6">Mohon maaf jika terdapat kekeliruan penulisan nama. Silakan buka undangan.</p>
         <div class="flex items-center justify-center gap-4">
             <button id="openInvitation" class="btn-primary cover-open-btn">
                 <span class="material-symbols-outlined">mail</span>
@@ -175,13 +179,13 @@ music_note
 <!-- HERO -->
 <section class="min-h-screen flex items-center justify-center px-6 relative">
 
-<div class="absolute top-24 left-10 text-blue-500/20 floating">
+<div class="absolute top-24 left-10 text-orange-500/20 floating">
 <span class="material-symbols-outlined text-[120px]">
 rocket_launch
 </span>
 </div>
 
-<div class="absolute bottom-16 right-10 text-blue-400/10 floating">
+<div class="absolute bottom-16 right-10 text-orange-400/10 floating">
 <span class="material-symbols-outlined text-[150px]">
 military_tech
 </span>
@@ -192,11 +196,11 @@ military_tech
 <!-- FOTO -->
 <div class="relative flex justify-center">
 
-<div class="absolute w-72 h-72 bg-blue-500/20 rounded-full blur-3xl glow"></div>
+<div class="absolute w-72 h-72 bg-orange-500/20 rounded-full blur-3xl glow"></div>
 
 <img
 src="gambar/foto.jpeg"
-class="relative z-10 w-72 h-72 md:w-[420px] md:h-[420px] rounded-full object-cover border-4 border-blue-500/40 shadow-2xl photo-hover"
+class="relative z-10 w-72 h-72 md:w-[420px] md:h-[420px] rounded-full object-cover border-4 border-orange-500/40 shadow-2xl photo-hover"
 alt="Graduate"
 />
 
@@ -206,7 +210,7 @@ alt="Graduate"
 <div class="text-center md:text-left">
 
 <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full glass mb-6">
-<span class="material-symbols-outlined text-blue-400">
+<span class="material-symbols-outlined text-orange-400">
 bolt
 </span>
 
@@ -218,15 +222,15 @@ Wisuda 2026
 <div class="leading-tight mb-6">
     <div class="text-3xl md:text-4xl font-semibold title-font">Graduate</div>
     <h1 class="title-font text-5xl md:text-7xl font-extrabold mt-2">
-        <span class="text-blue-400">Wisuda 2026</span>
+        <span class="text-orange-400">Wisuda 2026</span>
     </h1>
     <p class="text-slate-200 mt-3 font-medium">BAB BARU DIMULAI</p>
 </div>
 
 <!-- Graduate name (can be overridden with ?student=Name) -->
-<div class="text-lg font-semibold text-slate-200 mb-3"><span id="grad-name"></span></div>
+<div class="text-lg font-semibold text-gray-800 mb-3"><span id="grad-name"></span></div>
 
-<p class="text-xl text-slate-300 mb-8 leading-relaxed">
+<p class="text-xl text-gray-700 mb-8 leading-relaxed">
 Dengan penuh rasa syukur, saya mengundang Bapak/Ibu/Saudara/i untuk hadir dan menjadi bagian dari momen kelulusan ini.
 
 Perjalanan ini tidak akan sampai di titik ini tanpa doa, dukungan, dan kebersamaan dari orang-orang terdekat. Terima kasih telah menjadi bagian dari cerita ini.
@@ -245,9 +249,10 @@ Perjalanan ini tidak akan sampai di titik ini tanpa doa, dukungan, dan kebersama
 </div>
 
                 <!-- COUNTDOWN -->
-                <div id="countdown" class="mt-8 inline-flex items-center gap-4 bg-white/5 px-6 py-3 rounded-full text-center">
-                    <span class="material-symbols-outlined text-blue-300">timer</span>
-                    <div class="font-semibold text-slate-200">
+                <div id="countdown"
+class="mt-8 inline-flex items-center gap-4 bg-orange-100 px-6 py-3 rounded-full text-center">
+                    <span class="material-symbols-outlined text-orange-300">timer</span>
+                    <div class="font-semibold text-gray-800">
                         <span id="cd-days">00</span>d
                         <span id="cd-hours" class="ml-2">00</span>h
                         <span id="cd-mins" class="ml-2">00</span>m
@@ -335,11 +340,11 @@ Perjalanan ini tidak akan sampai di titik ini tanpa doa, dukungan, dan kebersama
 <div class="max-w-5xl mx-auto glass rounded-[40px] p-10 text-center">
     <h2 class="title-font text-4xl md:text-5xl font-bold mb-4">UNDANGAN WISUDA</h2>
 
-    <p class="text-slate-300 text-lg leading-relaxed max-w-3xl mx-auto">
+    <p class="text-gray-800 text-lg leading-relaxed max-w-3xl mx-auto">
         Assalamu’alaikum Warahmatullahi Wabarakatuh
     </p>
 
-    <p class="text-slate-300 text-lg leading-relaxed max-w-3xl mx-auto mt-4">
+    <p class="text-gray-700 text-lg leading-relaxed max-w-3xl mx-auto mt-4">
         Dengan penuh kebahagiaan, saya mengundang Bapak/Ibu/Saudara/i untuk hadir pada acara wisuda ini.
         Kehadiran dan doa restu dari Anda akan menjadi kebahagiaan tersendiri bagi saya dan keluarga.
         Mohon konfirmasi kehadiran agar persiapan acara dapat dilakukan dengan lebih baik.
@@ -368,9 +373,9 @@ Perjalanan ini tidak akan sampai di titik ini tanpa doa, dukungan, dan kebersama
 
 <div class="flex items-center gap-4 mb-6">
 
-<div class="w-14 h-14 rounded-full bg-blue-500/20 flex items-center justify-center">
+<div class="w-14 h-14 rounded-full bg-orange-500/20 flex items-center justify-center">
 
-<span class="material-symbols-outlined text-blue-400">
+<span class="material-symbols-outlined text-orange-400">
 calendar_month
 </span>
 
@@ -382,7 +387,7 @@ calendar_month
 Tanggal Acara
 </h3>
 
-<p class="text-slate-400">
+<p class="text-gray-600">
 Momen spesial kelulusan
 </p>
 
@@ -394,7 +399,7 @@ Momen spesial kelulusan
 
 <div class="flex justify-between border-b border-white/10 pb-4">
 
-<span class="text-slate-400">
+<span class="text-gray-600">
 Hari
 </span>
 
@@ -406,7 +411,7 @@ Minggu
 
 <div class="flex justify-between border-b border-white/10 pb-4">
 
-<span class="text-slate-400">
+<span class="text-gray-600">
 Tanggal
 </span>
 
@@ -418,7 +423,7 @@ Tanggal
 
 <div class="flex justify-between">
 
-<span class="text-slate-400">
+<span class="text-gray-600">
 Waktu
 </span>
 
@@ -437,9 +442,9 @@ Waktu
 
 <div class="flex items-center gap-4 mb-6">
 
-<div class="w-14 h-14 rounded-full bg-blue-500/20 flex items-center justify-center">
+<div class="w-14 h-14 rounded-full bg-orange-500/20 flex items-center justify-center">
 
-<span class="material-symbols-outlined text-blue-400">
+<span class="material-symbols-outlined text-orange-400">
 location_on
 </span>
 
@@ -486,7 +491,7 @@ Lihat Peta
 
 
 <!-- FOOTER -->
-<footer class="py-10 text-center text-slate-400 text-sm">
+<footer class="py-10 text-center text-gray-600 text-sm">
 <p>© 2026 Undangan Wisuda Putra</p>
 </footer>
 
