@@ -224,14 +224,14 @@ Wisuda 2026
     <h1 class="title-font text-5xl md:text-7xl font-extrabold mt-2">
         <span class="text-orange-400">Wisuda 2026</span>
     </h1>
-    <p class="text-slate-200 mt-3 font-medium">--</p>
+    <p class="text-slate-200 mt-3 font-medium">BAB BARU DIMULAI</p>
 </div>
 
 <!-- Graduate name (can be overridden with ?student=Name) -->
 <div class="text-lg font-semibold text-gray-800 mb-3"><span id="grad-name"></span></div>
 
 <p class="text-xl text-gray-700 mb-8 leading-relaxed">
-Dengan penuh rasa syukur, <br> saya mengundang Bapak/Ibu/Saudara/i untuk hadir dan menjadi bagian dari momen kelulusan ini.
+Dengan penuh rasa syukur, <br>saya mengundang Bapak/Ibu/Saudara/i untuk hadir dan menjadi bagian dari momen kelulusan ini.
 
 Perjalanan ini tidak akan sampai di titik ini tanpa doa, dukungan, dan kebersamaan dari orang-orang terdekat. Terima kasih telah menjadi bagian dari cerita ini.
 
@@ -624,41 +624,92 @@ rsvpForm.addEventListener('submit', async function(e) {
 });
 
 // Countdown to event: 21 June 2026 10:00 WIB
-(function(){
-    const target = new Date('2026-06-21T10:00:00+07:00').getTime();
+(function () {
+
+    const targetDate = new Date(
+        2026, // tahun
+        5,    // bulan (0=Jan, 5=Juni)
+        21,   // tanggal
+        10,   // jam
+        0,
+        0
+    );
+
     const daysEl = document.getElementById('cd-days');
     const hoursEl = document.getElementById('cd-hours');
     const minsEl = document.getElementById('cd-mins');
     const secsEl = document.getElementById('cd-secs');
 
-    function updateCountdown(){
-        const now = Date.now();
-        let delta = Math.max(0, target - now);
-        const days = Math.floor(delta / (1000*60*60*24));
-        delta -= days * (1000*60*60*24);
-        const hours = Math.floor(delta / (1000*60*60));
-        delta -= hours * (1000*60*60);
-        const minutes = Math.floor(delta / (1000*60));
-        delta -= minutes * (1000*60);
-        const seconds = Math.floor(delta / 1000);
+    function updateCountdown() {
 
-        if(daysEl) daysEl.textContent = String(days).padStart(2,'0');
-        if(hoursEl) hoursEl.textContent = String(hours).padStart(2,'0');
-        if(minsEl) minsEl.textContent = String(minutes).padStart(2,'0');
-        if(secsEl) secsEl.textContent = String(seconds).padStart(2,'0');
+        const now = new Date();
+        const distance = targetDate - now;
 
-        if (target - Date.now() <= 0) {
-            clearInterval(intervalId);
-            const cnt = document.getElementById('countdown');
-            if (cnt) cnt.innerHTML = '<span class="font-bold">ACARA SEDANG BERLANGSUNG</span>';
+        if (distance <= 0) {
+
+            document.getElementById('countdown').innerHTML =
+                '<span class="font-bold text-orange-600">ACARA SEDANG BERLANGSUNG</span>';
+
+            clearInterval(timer);
+
+            return;
         }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+
+        const hours = Math.floor(
+            (distance % (1000 * 60 * 60 * 24))
+            / (1000 * 60 * 60)
+        );
+
+        const minutes = Math.floor(
+            (distance % (1000 * 60 * 60))
+            / (1000 * 60)
+        );
+
+        const seconds = Math.floor(
+            (distance % (1000 * 60))
+            / 1000
+        );
+
+        daysEl.textContent = days;
+        hoursEl.textContent = String(hours).padStart(2, '0');
+        minsEl.textContent = String(minutes).padStart(2, '0');
+        secsEl.textContent = String(seconds).padStart(2, '0');
     }
 
     updateCountdown();
-    const intervalId = setInterval(updateCountdown, 1000);
+
+    const timer = setInterval(updateCountdown, 1000);
+
 })();
 
 </script>
+<script>
+const targetDate = new Date("June 21, 2026 10:00:00").getTime();
 
+const timer = setInterval(() => {
+
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("cd-days").textContent = days;
+    document.getElementById("cd-hours").textContent = hours;
+    document.getElementById("cd-mins").textContent = minutes;
+    document.getElementById("cd-secs").textContent = seconds;
+
+    if (distance < 0) {
+        clearInterval(timer);
+        document.getElementById("countdown").innerHTML =
+            "ACARA SEDANG BERLANGSUNG";
+    }
+
+}, 1000);
+</script>
 </body>
 </html>
